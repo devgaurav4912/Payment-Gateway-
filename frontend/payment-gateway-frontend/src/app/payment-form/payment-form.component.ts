@@ -13,6 +13,8 @@ export class PaymentFormComponent implements OnInit {
 
   paymentForm!: FormGroup;
 
+  paymentId! :any 
+
   constructor(private fb: FormBuilder ,
               private apiService : ApiService
   ) {}
@@ -22,8 +24,19 @@ export class PaymentFormComponent implements OnInit {
       name: ['', Validators.required],
       address: ['', Validators.required],
       contactNumber: ['', [Validators.required, Validators.pattern('^\\d{10}$')]], // Validates 10-digit contact number
-      totalAmount: ['', [Validators.required, Validators.min(0)]]
+      totalAmount: ['', [Validators.required, Validators.min(0)]],
+      transactionId : this.paymentId
     });
+  }
+
+  saveOrderDetails(){
+
+    this.apiService.saveOrderDetails(this.paymentForm.value,)
+    .subscribe((res:any)=>{
+      console.log("ORDER-DETAILS -->"+res);
+    })
+
+   // this.createTransaction();
   }
 
   createTransaction(): void {
@@ -38,6 +51,8 @@ export class PaymentFormComponent implements OnInit {
         console.log("TRANSACTION-ERROR -->"+error)
       })
     }
+
+    this.saveOrderDetails();
   }
 
   openTransactionModal(response:any){
@@ -50,6 +65,8 @@ export class PaymentFormComponent implements OnInit {
       description : response.description,
       image : 'https://cdn.pixabay.com/photo/2023/12/03/10/11/woman-8427201_640.png',
       handler : (res:any)=>{
+        console.log("TRANSACTION ID --> "+res.razorpay_payment_id);
+        this.paymentId = res.razorpay_payment_id;
         if(res!=null && res.razorpay_payment_id !=null){
           this.processResponse(res)
         }else{
