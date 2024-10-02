@@ -14,15 +14,17 @@ public class OrderDetails {
     private String name;
     private String address;
     private String contactNumber;
-
     private String totalAmount;
 
-    public OrderDetails(Integer orderId, String name, String address, String contactNumber, String totalAmount) {
+    private String transactionId;
+
+    public OrderDetails(Integer orderId, String name, String address, String contactNumber, String totalAmount, String transactionId) {
         this.orderId = orderId;
         this.name = name;
         this.address = address;
         this.contactNumber = contactNumber;
         this.totalAmount = totalAmount;
+        this.transactionId = transactionId;
     }
 
     public Integer getOrderId() {
@@ -63,6 +65,14 @@ public class OrderDetails {
 
     public void setTotalAmount(String totalAmount) {
         this.totalAmount = totalAmount;
+    }
+
+    public String getTransactionId() {
+        return transactionId;
+    }
+
+    public void setTransactionId(String transactionId) {
+        this.transactionId = transactionId;
     }
 
     @Override
