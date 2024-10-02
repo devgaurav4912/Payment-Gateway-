@@ -19,33 +19,33 @@ public class PaymentService {
 
     private  static final String CURRENCY = "INR";
 
-    private RazorpayClient client;
+    //private RazorpayClient client;
 
-    public PaymentService() throws RazorpayException {
-        this.client = new RazorpayClient(razorpayKeyId, razorpayKeySecret);
-    }
+//    public PaymentService() throws RazorpayException {
+//        this.client = new RazorpayClient(razorpayKeyId, razorpayKeySecret);
+//    }
 
-    public Map<String, Object> createOrder(double amount, String currency) throws RazorpayException {
-        Map<String, Object> response = new HashMap<>();
-
-        // Convert amount to the smallest currency unit (Razorpay accepts amounts in paise)
-        int amountInPaise = (int) (amount * 100);
-
-        JSONObject options = new JSONObject();
-        options.put("amount", amountInPaise); // amount in paise
-        options.put("currency", currency);
-        options.put("receipt", "txn_123456");
-        options.put("payment_capture", true); // automatic capture
-
-        Order order = client.orders.create(options);
-
-        response.put("id", order.get("id"));
-        response.put("currency", order.get("currency"));
-        response.put("amount", order.get("amount"));
-        response.put("status", order.get("status"));
-
-        return response;
-    }
+//    public Map<String, Object> createOrder(double amount, String currency) throws RazorpayException {
+//        Map<String, Object> response = new HashMap<>();
+//
+//        // Convert amount to the smallest currency unit (Razorpay accepts amounts in paise)
+//        int amountInPaise = (int) (amount * 100);
+//
+//        JSONObject options = new JSONObject();
+//        options.put("amount", amountInPaise); // amount in paise
+//        options.put("currency", currency);
+//        options.put("receipt", "txn_123456");
+//        options.put("payment_capture", true); // automatic capture
+//
+//        Order order = client.orders.create(options);
+//
+//        response.put("id", order.get("id"));
+//        response.put("currency", order.get("currency"));
+//        response.put("amount", order.get("amount"));
+//        response.put("status", order.get("status"));
+//
+//        return response;
+//    }
 
     public TransactionDetails createTransaction(Double amount){
         //amount , currency , key , secretKey
@@ -75,7 +75,7 @@ public class PaymentService {
         String currency = order.get("currency");
         Integer amount = order.get("amount");
 
-        TransactionDetails transactionDetails = new TransactionDetails(orderId , currency , amount);
+        TransactionDetails transactionDetails = new TransactionDetails(orderId , currency , amount ,razorpayKeyId);
         return  transactionDetails ;
 
     }
