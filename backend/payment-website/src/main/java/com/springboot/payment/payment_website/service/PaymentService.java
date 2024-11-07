@@ -16,7 +16,6 @@ public class PaymentService {
 
     private static final String razorpayKeyId = "rzp_test_wRZmGuu081rGQe";
     private static final String razorpayKeySecret= "yPpkqfWjypvNvH3Rs46m3GMZ";
-
     private  static final String CURRENCY = "INR";
 
     //private RazorpayClient client;
@@ -75,7 +74,7 @@ public class PaymentService {
         String currency = order.get("currency");
         Integer amount = order.get("amount");
 
-        TransactionDetails transactionDetails = new TransactionDetails(orderId , currency , amount ,razorpayKeyId);
+        TransactionDetails transactionDetails = new TransactionDetails(orderId , currency , amount , razorpayKeyId);
         return  transactionDetails ;
 
     }
