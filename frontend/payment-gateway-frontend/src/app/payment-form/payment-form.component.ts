@@ -35,7 +35,6 @@ export class PaymentFormComponent implements OnInit {
     .subscribe((res:any)=>{
       console.log("ORDER-DETAILS -->"+res);
     })
-
    // this.createTransaction();
   }
 
